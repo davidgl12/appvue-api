@@ -1,0 +1,19 @@
+body {
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 1rem;
+}
+
+.boton {
+    margin:1rem;
+    padding: 2rem
+}
+
+h1 {
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
