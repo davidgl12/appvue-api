@@ -1,14 +1,14 @@
 const { Router } = require('express');
-const TodoListItem = require('../../models/TodoListItem');
+const ListaPendientes = require('../modelos/ListaPendientes');
 
 const router = Router();
 
 
 router.get('/', async (req, res) => {
     try {
-        const todoListItems = await TodoListItem.find();
-        if (!todoListItems) throw new Error('No items');
-        const sorted = todoListItems.sort((a, b) => {
+        const listaPendientess = await ListaPendientes.find();
+        if (!listaPendientess) throw new Error('No hay nada');
+        const sorted = listaPendientess.sort((a, b) => {
             return new Date(a.date).getTime() - new Date(b.date).getTime();
         })
         res.status(200).json(sorted);
@@ -19,12 +19,12 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const newTodoListItem = new TodoListItem(req.body)
+    const newListaPendientes = new ListaPendientes(req.body)
 
     try {
-        const todoListItem = await newTodoListItem.save();
-        if (!todoListItem) throw new Error('Something went wrong saving todolist');
-        res.status(200).json(todoListItem);
+        const listaPendientes = await newListaPendientes.save();
+        if (!listaPendientes) throw new Error('Algo salió mal');
+        res.status(200).json(listaPendientes);
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
@@ -33,8 +33,8 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
     try {
-        const response = await TodoListItem.findByIdAndUpdate(id, req.body);
-        if(!response) throw Error('Something went wrong ');
+        const response = await ListaPendientes.findByIdAndUpdate(id, req.body);
+        if(!response) throw Error('Algo salió mal ');
         const updated = { ...response._doc, ...req.body};
         res.status(200).json(updated)
 
@@ -48,8 +48,8 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     const { id } = req.params
     try {
-        const removed = await TodoListItem.findByIdAndDelete(id);
-        if(!removed) throw Error('Something went wrong in delete');
+        const removed = await ListaPendientes.findByIdAndDelete(id);
+        if(!removed) throw Error('Algo salió mal');
         res.status(200).json(removed)
 
     } catch(error){

@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const TodoListItemSchema = new Schema({
+const ListaPendientesSchema = new Schema({
     description : {
         type: String,
         required: true,
@@ -12,6 +12,6 @@ const TodoListItemSchema = new Schema({
     }
 })
 
-const TodoListItem = model('todoListItem', TodoListItemSchema);
+const ListaPendientes = model('listaPendientes', ListaPendientesSchema);
 
-module.exports = TodoListItem;
+module.exports = ListaPendientes;
